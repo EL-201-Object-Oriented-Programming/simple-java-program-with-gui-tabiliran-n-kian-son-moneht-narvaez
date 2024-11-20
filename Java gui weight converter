@@ -1,0 +1,72 @@
+// made by Tabiliran noah, Kian son, Moneht Narvaez
+
+import javax.swing.*;
+    import java.awt.*;
+    import java.awt.event.ActionEvent;
+    import java.awt.event.ActionListener;
+
+    public class Main {
+
+        public static void main(String[] args) {
+            
+            JFrame frame = new JFrame("Weight Converter");
+            frame.setSize(300, 200);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setLayout(new GridLayout(4, 2, 10, 10));
+
+            
+            JLabel inputLabel = new JLabel("Enter Weight:");
+            JTextField inputField = new JTextField();
+
+            JLabel resultLabel = new JLabel("Converted Weight:");
+            JTextField resultField = new JTextField();
+            resultField.setEditable(false);
+
+            JRadioButton toKgButton = new JRadioButton("To Kilograms");
+            JRadioButton toLbButton = new JRadioButton("To Pounds");
+            ButtonGroup group = new ButtonGroup();
+            group.add(toKgButton);
+            group.add(toLbButton);
+
+            JButton convertButton = new JButton("Convert");
+
+            
+            convertButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        
+                        double inputWeight = Double.parseDouble(inputField.getText());
+                        double convertedWeight;
+
+                        
+                        if (toKgButton.isSelected()) {
+                            convertedWeight = inputWeight * 0.453592; // Pounds to Kilograms
+                            resultField.setText(String.format("%.2f kg", convertedWeight));
+                        } else if (toLbButton.isSelected()) {
+                            convertedWeight = inputWeight / 0.453592; // Kilograms to Pounds
+                            resultField.setText(String.format("%.2f lbs", convertedWeight));
+                        } else {
+                            JOptionPane.showMessageDialog(frame, "Please select a conversion option.");
+                        }
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(frame, "Invalid input! Please enter a number.");
+                    }
+                }
+            }
+                                           );
+
+            
+            frame.add(inputLabel);
+            frame.add(inputField);
+            frame.add(toKgButton);
+            frame.add(toLbButton);
+            frame.add(resultLabel);
+            frame.add(resultField);
+            frame.add(new JLabel()); 
+           frame.add(convertButton);
+
+           
+            frame.setVisible(true);
+        }
+    }
